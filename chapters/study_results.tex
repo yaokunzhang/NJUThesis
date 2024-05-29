@@ -1,0 +1,462 @@
+\chapter{研究结果}
+通过实验，我们获得了一定的研究结果数据，我们在本章展示这些结果数据，给出由结果数据得出的结论，并对结论结合我们对于仓库具体变更情况的观察，分析所得结论的原因。
+
+在问题一和三的表格中，表格中值为OR/p-value；在问题二和四的表格中，表格中值为C/p-value。另外，表格颜色为橙色表示数据呈负（抑制）作用，绿色表示数据呈正（促进）作用，灰色表示数据无效。
+
+\section{结果一：不同语法项与变更倾向性之间的关系}
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ1研究结果a}
+	\begin{tabular}{cccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{Module}    & \textbf{ExternCrate} & \textbf{ConstantItem} & \textbf{MacroInvocationSemi} \\
+        \midrule
+		egui        & GUI框架       & \cellcolor{orange!30}0.33/0.0  & \cellcolor{gray!20}nan/1.0     & \cellcolor{gray!20}1.057/0.723  & \cellcolor{orange!30}0.621/0.0           \\
+		iced        & GUI框架       & \cellcolor{orange!30}0.109/0.0 & \cellcolor{gray!20}nan/1.0     & \cellcolor{gray!20}0.362/0.0    & \cellcolor{orange!30}0.485/0.0           \\
+		nushell     & 命令行工具与Shell & \cellcolor{orange!30}0.074/0.0 & \cellcolor{gray!20}0.0/0.126   & \cellcolor{gray!20}0.451/0.0    & \cellcolor{orange!30}0.466/0.0           \\
+		clap        & 命令行工具与Shell & \cellcolor{orange!30}0.156/0.0 & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}1.45/0.006   & \cellcolor{orange!30}0.822/0.0           \\
+		starship    & 命令行工具与Shell & \cellcolor{orange!30}0.022/0.0 & \cellcolor{gray!20}0.0/0.502   & \cellcolor{orange!30}0.101/0.0    & \cellcolor{orange!30}0.781/0.026         \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{orange!30}0.1/0.0   & \cellcolor{orange!30}0.191/0.0   & \cellcolor{orange!30}0.341/0.0    & \cellcolor{orange!30}0.332/0.0           \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{orange!30}0.13/0.0  & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.764/0.022  & \cellcolor{orange!30}0.637/0.0           \\
+		tools       & 开发工具 & \cellcolor{orange!30}0.064/0.0 & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.643/0.0    & \cellcolor{orange!30}0.484/0.0           \\
+		tokio       & 异步运行时       & \cellcolor{orange!30}0.195/0.0 & \cellcolor{gray!20}0.0/1.0     & \cellcolor{orange!30}0.454/0.0    & \cellcolor{orange!30}0.851/0.024         \\
+		diem        & 区块链和安全      & \cellcolor{orange!30}0.151/0.0 & \cellcolor{gray!20}0.0/0.476   & \cellcolor{orange!30}0.409/0.0    & \cellcolor{orange!30}0.615/0.0           \\
+		vaultwarden & 区块链和安全      & \cellcolor{orange!30}0.071/0.0 & \cellcolor{gray!20}inf/0.125   & \cellcolor{orange!30}0.587/0.006  & \cellcolor{orange!30}0.445/0.0           \\
+		actix-web   & 网络框架        & \cellcolor{orange!30}0.187/0.0 & \cellcolor{gray!20}0.642/0.305 & \cellcolor{orange!30}0.557/0.026  & \cellcolor{orange!30}0.801/0.013   \\
+        \bottomrule
+	\end{tabular}
+	\label{tab:RQ1-1}
+\end{table}
+
+由表\ref{tab:RQ1-1}可以得出结论：Module、ConstantItem、MacroInvocationSemi不容易发生变更；ExternCrate无法得出有效结论。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ1研究结果b}
+	\begin{tabular}{ccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{MacroRulesDefinition} & \textbf{ExternBlock} & \textbf{Struct}      \\
+        \midrule
+		egui        & GUI框架       & \cellcolor{orange!30}0.237/0.0            & \cellcolor{gray!20}0.511/0.483 & \cellcolor{orange!30}0.607/0.0   \\
+		iced        & GUI框架       & \cellcolor{gray!20}2.459/0.059          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.885/0.039 \\
+		nushell     & 命令行工具与Shell & \cellcolor{orange!30}0.586/0.015          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.621/0.0   \\
+		clap        & 命令行工具与Shell & \cellcolor{gray!20}0.997/1.0            & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.868/0.025 \\
+		starship    & 命令行工具与Shell & \cellcolor{green!20}4.637/0.048          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.126/0.0   \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{gray!20}0.836/0.074          & \cellcolor{gray!20}0.0/1.0     & \cellcolor{orange!30}0.526/0.0   \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{gray!20}0.761/0.209          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.66/0.0    \\
+		tools       & 开发工具 & \cellcolor{orange!30}0.511/0.0            & \cellcolor{gray!20}0.245/0.214 & \cellcolor{orange!30}0.547/0.0   \\
+		tokio       & 异步运行时       & \cellcolor{orange!30}0.674/0.008          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.684/0.0   \\
+		diem        & 区块链和安全      & \cellcolor{green!20}1.753/0.008          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.73/0.0    \\
+		vaultwarden & 区块链和安全      & \cellcolor{gray!20}0.784/0.153          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.168/0.0   \\
+		actix-web   & 网络框架        & \cellcolor{green!20}2.294/0.0            & \cellcolor{gray!20}nan/1.0     & \cellcolor{gray!20}0.912/0.393   \\
+        \bottomrule
+	\end{tabular}
+	\label{tab:RQ1-2}
+\end{table}
+
+由表\ref{tab:RQ1-2}可以得出：Struct不容易发生变更，MacroRulesDefinition、ExternBlock无法得出有效结论。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ1研究结果c}
+	\begin{tabular}{cccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{Enumeration} & \textbf{TypeAlias}   & \textbf{Function}    & \textbf{Implementation} \\
+        \midrule
+		egui        & GUI框架       & \cellcolor{orange!30}0.487/0.0   & \cellcolor{orange!30}0.59/0.002  & \cellcolor{green!20}1.35/0.0    & \cellcolor{orange!30}0.275/0.0      \\
+		iced        & GUI框架       & \cellcolor{orange!30}0.56/0.0    & \cellcolor{orange!30}0.318/0.0   & \cellcolor{green!20}1.42/0.0    & \cellcolor{orange!30}0.487/0.0      \\
+		nushell     & 命令行工具与Shell & \cellcolor{orange!30}0.417/0.0   & \cellcolor{orange!30}0.533/0.0   & \cellcolor{gray!20}0.932/0.134 & \cellcolor{orange!30}0.387/0.0      \\
+		clap        & 命令行工具与Shell & \cellcolor{orange!30}0.461/0.0   & \cellcolor{orange!30}0.204/0.0   & \cellcolor{gray!20}0.914/0.091 & \cellcolor{orange!30}0.57/0.0       \\
+		starship    & 命令行工具与Shell & \cellcolor{orange!30}0.282/0.0   & \cellcolor{gray!20}0.571/0.399 & \cellcolor{green!20}1.559/0.016 & \cellcolor{orange!30}0.259/0.0      \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{orange!30}0.346/0.0   & \cellcolor{orange!30}0.655/0.0   & \cellcolor{orange!30}0.574/0.0   & \cellcolor{orange!30}0.262/0.0      \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{orange!30}0.472/0.0   & \cellcolor{orange!30}0.453/0.0   & \cellcolor{green!20}1.461/0.0   & \cellcolor{orange!30}0.358/0.0      \\
+		tools       & 开发工具 & \cellcolor{orange!30}0.456/0.0   & \cellcolor{orange!30}0.586/0.0   & \cellcolor{green!20}1.107/0.11  & \cellcolor{orange!30}0.343/0.0      \\
+		tokio       & 异步运行时       & \cellcolor{orange!30}0.608/0.023 & \cellcolor{orange!30}0.455/0.0   & \cellcolor{green!20}1.132/0.008 & \cellcolor{orange!30}0.289/0.0      \\
+		diem        & 区块链和安全      & \cellcolor{orange!30}0.499/0.0   & \cellcolor{orange!30}0.547/0.0   & \cellcolor{green!20}1.241/0.041 & \cellcolor{orange!30}0.345/0.0      \\
+		vaultwarden & 区块链和安全      & \cellcolor{orange!30}0.071/0.0   & \cellcolor{orange!30}0.23/0.0    & \cellcolor{orange!30}0.451/0.0   & \cellcolor{orange!30}0.156/0.0      \\
+		actix-web   & 网络框架        & \cellcolor{green!20}1.681/0.0   & \cellcolor{gray!20}1.098/0.563 & \cellcolor{green!20}1.427/0.0   & \cellcolor{orange!30}0.573/0.0   \\
+        \bottomrule     
+	\end{tabular}
+	\label{tab:RQ1-3}
+\end{table}
+
+由表\ref{tab:RQ1-3}可以得出：Enumeration、TypeAlias、Implementation不容易发生变更，Function较多数据表现出变更倾向。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ1研究结果d}
+	\begin{tabular}{cccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{Trait}       & \textbf{StaticItem}  & \textbf{UseDeclaration} & \textbf{GenericParams} \\
+        \midrule
+		egui        & GUI框架       & \cellcolor{gray!20}0.738/0.077 & \cellcolor{gray!20}0.853/1.0   & \cellcolor{gray!20}1.043/0.535    & \cellcolor{orange!30}0.467/0.0     \\
+		iced        & GUI框架       & \cellcolor{orange!30}0.32/0.0    & \cellcolor{gray!20}1.212/0.618 & \cellcolor{orange!30}0.709/0.0      & \cellcolor{orange!30}0.584/0.0     \\
+		nushell     & 命令行工具与Shell & \cellcolor{gray!20}1.133/0.624 & \cellcolor{orange!30}0.426/0.026 & \cellcolor{orange!30}0.883/0.0      & \cellcolor{orange!30}0.41/0.0      \\
+		clap        & 命令行工具与Shell & \cellcolor{gray!20}1.227/0.133 & \cellcolor{green!20}2.626/0.0   & \cellcolor{orange!30}0.621/0.0      & \cellcolor{orange!30}0.545/0.0     \\
+		starship    & 命令行工具与Shell & \cellcolor{orange!30}0.0/0.033   & \cellcolor{gray!20}0.573/0.691 & \cellcolor{gray!20}0.873/0.308    & \cellcolor{orange!30}0.605/0.035   \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{orange!30}0.385/0.0   & \cellcolor{orange!30}0.06/0.0    & \cellcolor{green!20}1.456/0.0      & \cellcolor{orange!30}0.531/0.0     \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{orange!30}0.178/0.0   & \cellcolor{gray!20}1.184/0.727 & \cellcolor{orange!30}0.762/0.0      & \cellcolor{orange!30}0.556/0.001   \\
+		tools       & 开发工具 & \cellcolor{orange!30}0.537/0.0   & \cellcolor{gray!20}1.051/1.0   & \cellcolor{green!20}1.618/0.0      & \cellcolor{orange!30}0.512/0.0     \\
+		tokio       & 异步运行时       & \cellcolor{orange!30}0.538/0.008 & \cellcolor{gray!20}1.217/0.713 & \cellcolor{orange!30}0.745/0.0      & \cellcolor{orange!30}0.324/0.0     \\
+		diem        & 区块链和安全      & \cellcolor{orange!30}0.528/0.0   & \cellcolor{orange!30}0.716/0.017 & \cellcolor{green!20}1.338/0.0      & \cellcolor{orange!30}0.578/0.0     \\
+		vaultwarden & 区块链和安全      & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.315/0.0   & \cellcolor{gray!20}1.052/0.565    & \cellcolor{orange!30}0.364/0.0     \\
+		actix-web   & 网络框架        & \cellcolor{gray!20}0.855/0.412 & \cellcolor{gray!20}0.669/0.284 & \cellcolor{gray!20}1.055/0.547    & \cellcolor{orange!30}0.751/0.025   \\
+        \bottomrule  
+	\end{tabular}
+	\label{tab:RQ1-4}
+\end{table}
+
+由表\ref{tab:RQ1-4}可以得出：GenericParams不容易发生变更，Trait、StaticItem、UseDeclaration无法得出结论。
+
+
+综上，研究问题一可以得出如下的结论：
+
+\begin{enumerate}
+    \item Function 展现出相对较高的变更倾向。
+    \item ExternCrate、MacroRulesDefinition、UseDeclaration、Trait、ExternBlock 和 StaticItem的数据量较少或异常，难以得出明确结论。
+    \item Module、Constantitem、Enumeration,TypeAlias,Implementation 、MacroInvocationSemi 、 GenericParams、Struct 显示较低的变更倾向。
+    \item 在横向对比中，Function、MacroRulesDefinition 和 Struct 在多个仓库中更易发生变更。
+    \item 在不同领域间未发现显著的特征差异。
+    \item 整体上，OR值较低。
+\end{enumerate}
+
+通过以上的结论，我们结合对于具体仓库的具体代码实例的观察，有如下分析讨论：
+
+我们发现Function因其高变更倾向而成为关注的重点，对于Function，有明显的变更倾向，综合观察具体仓库变更特征以及实验得到的数据，我们发现Function语法项在变更时主要有以下几种行为：
+\begin{enumerate}
+    \item 功能扩展与修改需求频繁：函数是执行具体任务的基本单位，在软件开发的生命周期中，随着需求的变化和功能的增加，现有函数经常需要添加新的功能或修改原有功能来适应新的需求，因此函数的代码经常会被修改。
+    \item 接口调整：随着项目的演进，函数的输入参数、返回类型或内部逻辑可能需要调整以适应其他部分的变化，这些调整通常涉及到代码的修改而非重新引入。
+\end{enumerate}
+
+这可能指向这些代码部分在项目发展中的活跃性或复杂性。另一方面，Module和Enumeration则表现出较稳定的不易变更行为，暗示这些部分在项目中可能较为成熟或稳定，对于Module，模块旨在明确软件的结构和界限，它们往往在项目初期就被仔细设计，并在整个项目周期内保持相对稳定。架构的这种划分使得模块一旦确定后，较少需要大规模修改。而对于Enumeration，通常在设计阶段就被定义得非常具体和完备。由于枚举值往往与业务逻辑紧密相关且在项目早期就已确定，因此它们在软件开发周期中变动的可能性较小。
+
+然而，由于数据量不足或数据异常，如ExternCrate和Union，本研究在一些代码特征上未能形成明确的结论，这限制了分析的全面性。未来的研究应考虑收集更全面的数据，或采用更精细的分析方法，以增强对Rust项目变更动态的理解。
+
+\section{结果二：特定语法项中的引入类型与变更倾向性之间的关系}
+由表\ref{tab:RQ2-1},\ref{tab:RQ2-2},\ref{tab:RQ2-3},\ref{tab:RQ2-4}可以得出如下的结论：
+
+\begin{table}[ht]
+	\centering
+        \caption{RQ2研究结果:Struct}
+	\begin{tabular}{cccc}
+        \toprule
+		\textbf{repo}        & \textbf{const0}      & \textbf{visibility\_modifier} & \textbf{type}        \\
+        \midrule
+		actix-web   & \cellcolor{gray!20}0.078/0.7   & \cellcolor{orange!30}-1.38/0.005         & \cellcolor{gray!20}0.168/0.516 \\
+		alacritty   & \cellcolor{green!20}1.001/0.001 & \cellcolor{orange!30}-1.344/0.0          & \cellcolor{orange!30}-1.32/0.0   \\
+		clap        & \cellcolor{green!20}1.038/0.0   & \cellcolor{orange!30}-1.249/0.003        & \cellcolor{orange!30}-1.747/0.0  \\
+		diem        & \cellcolor{green!20}0.592/0.0   & \cellcolor{orange!30}-1.766/0.0          & \cellcolor{orange!30}-0.706/0.0  \\
+		egui        & \cellcolor{green!20}0.641/0.0   & \cellcolor{orange!30}-1.412/0.0          & \cellcolor{orange!30}-1.168/0.0  \\
+		firecracker & \cellcolor{gray!20}0.243/0.182 & \cellcolor{orange!30}-1.507/0.0          & \cellcolor{gray!20}-0.259/0.27 \\
+		iced        & \cellcolor{gray!20}0.18/0.163  & \cellcolor{orange!30}-2.379/0.0          & \cellcolor{gray!20}0.024/0.875 \\
+		nushell     & \cellcolor{green!20}1.86/0.0    & \cellcolor{orange!30}-2.027/0.0          & \cellcolor{orange!30}-2.293/0.0  \\
+		starship    & \cellcolor{green!20}1.073/0.047 & \cellcolor{orange!30}-1.777/0.001        & \cellcolor{orange!30}-2.394/0.0  \\
+		tikv        & \cellcolor{green!20}0.692/0.0   & \cellcolor{orange!30}-1.527/0.0          & \cellcolor{orange!30}-1.3/0.0    \\
+		tokio       & \cellcolor{green!20}0.382/0.037 & \cellcolor{orange!30}-0.778/0.006        & \cellcolor{orange!30}-0.919/0.0  \\
+		tools       & \cellcolor{green!20}0.678/0.0   & \cellcolor{orange!30}-2.096/0.0          & \cellcolor{orange!30}-1.357/0.0  \\
+		vaultwarden & \cellcolor{green!20}1.708/0.0   & \cellcolor{orange!30}-1.494/0.019        & \cellcolor{orange!30}-3.662/0.0   \\
+        \bottomrule 
+	\end{tabular}
+	\label{tab:RQ2-1}
+\end{table}
+
+由表\ref{tab:RQ2-1}可以得出：visibility\_modifier和type整体与结果呈负相关，即visibility\_modifier和type相对其他类型不容易引入变更。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ2研究结果:GenericParam}
+	\begin{tabular}{ccccc}
+        \toprule
+		\textbf{repo}        & \textbf{const0}       & \textbf{LifetimeParam} & \textbf{ConstParam}   & \textbf{TypeParam}    \\
+        \midrule
+		clap        & \cellcolor{gray!20}39.422/1.0   & \cellcolor{gray!20}-40.621/1.0   & \cellcolor{gray!20}-39.422/1.0  & \cellcolor{gray!20}-40.127/1.0  \\
+		firecracker & \cellcolor{gray!20}-0.323/0.667 & \cellcolor{gray!20}-0.754/0.225  & \cellcolor{gray!20}-0.119/0.925 & \cellcolor{gray!20}-0.384/0.595 \\
+		tikv        & \cellcolor{green!20}1.939/0.027  & \cellcolor{orange!30}-3.439/0.0    & \cellcolor{gray!20}-1.188/0.201 & \cellcolor{orange!30}-2.185/0.013 \\
+		tokio       & \cellcolor{green!20}1.152/0.017  & \cellcolor{orange!30}-1.461/0.002  & \cellcolor{gray!20}20.397/0.999 & \cellcolor{orange!30}-2.606/0.0   \\
+		tools       & \cellcolor{orange!30}-1.073/0.003 & \cellcolor{gray!20}0.235/0.479   & \cellcolor{gray!20}0.38/0.766   & \cellcolor{gray!20}0.315/0.376   \\
+        \bottomrule 
+	\end{tabular}
+	\label{tab:RQ2-2}
+\end{table}
+
+由表\ref{tab:RQ2-2}可以得出：整体有效值偏少，且C值正负值在仓库件有明显差距。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ2研究结果:Function}
+	\begin{tabular}{ccccccc}
+        \toprule
+		\textbf{repo}    & \textbf{const0}    & \textbf{function\_modifiers} & \textbf{parameters} & \textbf{lifetime}      & \textbf{trait\_bounds} & \textbf{return\_type} \\
+        \midrule
+		clap    & \cellcolor{orange!30}0.758/0.0 & \cellcolor{gray!20}-0.504/0.191       & \cellcolor{orange!30}-1.198/0.0 & \cellcolor{gray!20}-20.365/0.998 & \cellcolor{gray!20}0.051/0.811  & \cellcolor{orange!30}-0.793/0.0  \\
+		iced    & \cellcolor{orange!30}0.529/0.0 & \cellcolor{gray!20}0.41/0.549         & \cellcolor{orange!30}-0.62/0.0  & \cellcolor{gray!20}-15.724/0.996 & \cellcolor{orange!30}-0.841/0.0   & \cellcolor{orange!30}-1.072/0.0  \\
+		nushell & \cellcolor{orange!30}0.304/0.0 & \cellcolor{gray!20}-4.466/0.283       & \cellcolor{orange!30}-1.192/0.0 & \cellcolor{gray!20}-18.446/0.993 & \cellcolor{green!20}1.411/0.0    & \cellcolor{orange!30}-0.409/0.0  \\
+		tikv    & \cellcolor{orange!30}0.069/0.0 & \cellcolor{orange!30}0.911/0.0          & \cellcolor{orange!30}-0.935/0.0 & \cellcolor{gray!20}-12.931/0.994 & \cellcolor{orange!30}-0.575/0.013 & \cellcolor{orange!30}-0.518/0.0   \\
+        \bottomrule 
+	\end{tabular}
+	\label{tab:RQ2-3}
+\end{table}
+
+由表\ref{tab:RQ2-3}可以得出：parameters和return\_type都不容易发生变更；其他子成分无法得出明显的结论。
+
+\begin{table}[ht]
+	\centering
+        \caption{RQ2研究结果:ConstItem}
+	\begin{tabular}{cccc}
+        \toprule
+		\textbf{Repo}        & \textbf{const0}       & \textbf{type}         & \textbf{expression}    \\
+        \midrule
+		Alacrity    & \cellcolor{gray!20}25.216/0.999 & \cellcolor{orange!30}-4.762/0.0   & \cellcolor{gray!20}-22.508/0.999 \\
+		Diem        & \cellcolor{gray!20}30.592/1.0   & \cellcolor{orange!30}-5.656/0.0   & \cellcolor{gray!20}-27.812/1.0   \\
+		egui        & \cellcolor{gray!20}23.535/0.999 & \cellcolor{orange!30}-2.639/0.0   & \cellcolor{gray!20}-21.994/0.999 \\
+		firecracker & \cellcolor{gray!20}18.077/0.986 & \cellcolor{gray!20}-0.234/0.526 & \cellcolor{gray!20}-16.323/0.987 \\
+		iced        & \cellcolor{gray!20}15.666/0.944 & \cellcolor{orange!30}-3.761/0.0   & \cellcolor{gray!20}-14.28/0.949  \\
+		nushell     & \cellcolor{gray!20}15.229/0.967 & \cellcolor{orange!30}-3.313/0.0   & \cellcolor{gray!20}-13.599/0.971 \\
+		tikv        & \cellcolor{gray!20}25.3/0.999   & \cellcolor{orange!30}-3.874/0.0   & \cellcolor{gray!20}-23.508/0.999 \\
+		tokio       & \cellcolor{gray!20}30.379/1.0   & \cellcolor{orange!30}-6.04/0.0    & \cellcolor{gray!20}-27.334/1.0   \\
+		tools       & \cellcolor{gray!20}28.076/1.0   & \cellcolor{green!30}0.347/0.018  & \cellcolor{gray!20}-28.996/1.0   \\
+        \bottomrule  
+	\end{tabular}
+	\label{tab:RQ2-4}
+\end{table}
+
+由表\ref{tab:RQ2-4}可以得出：type子成分不易于发生变更，而expression的结果不显著，无法得出结论。
+
+通过以上的结论，我们结合对于具体仓库的具体代码实例的观察，有如下分析讨论：
+
+对于 Struct，结果显示 visibility\_modifier 和 type 类型的元素相对于其他部分不容易引入变更。这意味着 Struct 的可见性和类型定义相对稳定，这是良好的软件设计实践的体现，可减少因接口改变导致的错误。在 Function 的上下文中，parameters 和 return\_type 的稳定性进一步证实了函数定义的一致性和可靠性在项目维护中的重要性。对于 Struct 的其他子成分，由于数据不足或结果不显著，我们无法得出确切的结论。
+
+至于 ConstItem，同样观察到 type 子成分变更的频率较低，这指出常量定义的类型在项目中通常是预先定义好且稳定的。然而，对于 expression，结果显示不显著，暗示在不同项目或上下文中，常量表达式的变更可能更受到具体用途的影响，而非普遍规律。
+
+这些分析结果告诉我们在 Rust 项目中，稳定且定义良好的代码结构（如 Struct 和 ConstItem 的某些属性）对减少bug引入的重要性。对于那些数据不足或结果不显著的部分，建议在未来的研究中收集更多数据，采用更细致的方法来探索，以便提供更全面的结论和建议。这些发现可以帮助开发者更好地理解和优化代码结构，减少维护成本和潜在的错误率。
+
+\section{结果三：不同语法项与故障倾向性之间的关系}
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ3研究结果a}
+	\begin{tabular}{cccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{Module}      & \textbf{ExternCrate} & \textbf{ConstantItem} & \textbf{MacroInvocationSemi} \\
+        \midrule
+		egui        & GUI框架       &\cellcolor{green!20} 3.013/0.0   & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}1.659/0.0    & \cellcolor{green!20}2.559/0.0           \\
+		iced        & GUI框架       & \cellcolor{green!20}1.52/0.007  & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.0/0.0      & \cellcolor{green!20}1.455/0.011         \\
+		nushell     & 命令行工具与Shell & \cellcolor{green!20}1.269/0.0   & \cellcolor{gray!20}0.0/0.086   & \cellcolor{green!20}1.794/0.0    & \cellcolor{green!20}1.224/0.0           \\
+		clap        & 命令行工具与Shell &\cellcolor{green!20} 1.478/0.016 & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}1.801/0.01   & \cellcolor{gray!20}1.011/0.927         \\
+		starship    & 命令行工具与Shell & \cellcolor{gray!20}1.084/0.527 & \cellcolor{gray!20}0.0/0.554   & \cellcolor{gray!20}1.132/0.43   & \cellcolor{gray!20}1.219/0.121         \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{green!20}1.755/0.0   & \cellcolor{gray!20}1.541/0.118 & \cellcolor{green!20}1.887/0.0    & \cellcolor{green!20}1.389/0.0           \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{gray!20}0.907/0.864 & \cellcolor{gray!20}nan/1.0     & \cellcolor{gray!20}0.94/1.0     & \cellcolor{green!20}4.037/0.0           \\
+		tools       & 开发工具 & \cellcolor{green!20}1.143/0.023 & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}2.433/0.0    & \cellcolor{green!20}1.548/0.0           \\
+		tokio       & 异步运行时       & \cellcolor{green!20}2.661/0.0   & \cellcolor{gray!20}0.0/1.0     & \cellcolor{green!20}1.723/0.001  & \cellcolor{green!20}2.145/0.0           \\
+		diem        & 区块链和安全      & \cellcolor{green!20}2.867/0.0   & \cellcolor{gray!20}0.0/1.0     & \cellcolor{gray!20}1.205/0.472  & \cellcolor{green!20}2.999/0.0           \\
+		vaultwarden & 区块链和安全      & \cellcolor{green!20}5.771/0.0   & \cellcolor{gray!20}0.0/1.0     & \cellcolor{green!20}2.018/0.006  & \cellcolor{green!20}2.087/0.0           \\
+		actix-web   & 网络框架        & \cellcolor{green!20}1.476/0.013 & \cellcolor{gray!20}0.0/0.099   & \cellcolor{gray!20}0.829/0.726  & \cellcolor{green!20}1.385/0.019   \\
+        \bottomrule        
+	\end{tabular}
+	\label{tab:RQ3-1}
+\end{table}
+
+由表\ref{tab:RQ3-1}可以得出：Module、ConstantItem、MacroInvocationSemi显示出比较强的引入缺陷倾向，ExternCrate数据异常无法得出结论。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ3研究结果b}
+	\begin{tabular}{ccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{MacroRulesDefinition} & \textbf{ExternBlock} & \textbf{Struct}      \\
+        \midrule
+		egui        & GUI框架       & \cellcolor{gray!20}1.084/0.696          & \cellcolor{green!20}7.074/0.003 & \cellcolor{green!20}2.029/0.0   \\
+		iced        & GUI框架       & \cellcolor{green!20}3.344/0.042          & \cellcolor{gray!20}nan/1.0     & \cellcolor{orange!30}0.663/0.007 \\
+		nushell     & 命令行工具与Shell & \cellcolor{orange!30}0.426/0.002          & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}1.936/0.0   \\
+		clap        & 命令行工具与Shell & \cellcolor{gray!20}0.666/0.142          & \cellcolor{gray!20}nan/1.0     & \cellcolor{gray!20}1.237/0.078 \\
+		starship    & 命令行工具与Shell & \cellcolor{green!20}4.036/0.026          & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}1.603/0.0   \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{green!20}1.233/0.04           & \cellcolor{gray!20}0.0/0.503   & \cellcolor{green!20}2.076/0.0   \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{gray!20}2.766/0.069          & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}1.699/0.1   \\
+		tools       & 开发工具 & \cellcolor{orange!30}0.555/0.0            & \cellcolor{gray!20}0.864/1.0   & \cellcolor{green!20}1.554/0.0   \\
+		tokio       & 异步运行时       & \cellcolor{green!20}2.472/0.0            & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}2.102/0.0   \\
+		diem        & 区块链和安全      & \cellcolor{gray!20}0.0/0.077            & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}3.732/0.0   \\
+		vaultwarden & 区块链和安全      & \cellcolor{green!20}1.724/0.026          & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}3.88/0.0    \\
+		actix-web   & 网络框架        & \cellcolor{green!20}1.948/0.008          & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}3.108/0.0   \\
+        \bottomrule  
+	\end{tabular}
+	\label{tab:RQ3-2}
+\end{table}
+
+由表\ref{tab:RQ3-2}可以得出：Struct显示出比较强的引入缺陷倾向, MacroRulesDefination和ExternBlock数据异常无法得出结论。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ3研究结果c}
+	\begin{tabular}{cccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{Enumeration} & \textbf{TypeAlias}   & \textbf{Function}    & \textbf{Implementation} \\
+        \midrule
+		egui        & GUI框架       & \cellcolor{green!20}1.513/0.0   & \cellcolor{green!20}4.668/0.0   & \cellcolor{green!20}2.64/0.0    & \cellcolor{green!20}1.715/0.0      \\
+		iced        & GUI框架       & \cellcolor{gray!20}0.919/0.676 & \cellcolor{green!20}1.771/0.011 & \cellcolor{green!20}2.615/0.0   & \cellcolor{gray!20}0.826/0.209    \\
+		nushell     & 命令行工具与Shell & \cellcolor{green!20}2.362/0.0   & \cellcolor{green!20}2.44/0.0    & \cellcolor{green!20}2.313/0.0   & \cellcolor{green!20}2.007/0.0      \\
+		clap        & 命令行工具与Shell & \cellcolor{green!20}1.611/0.0   & \cellcolor{green!20}1.579/0.07  & \cellcolor{gray!20}1.037/0.765 & \cellcolor{green!20}1.446/0.0      \\
+		starship    & 命令行工具与Shell & \cellcolor{green!20}3.781/0.0   & \cellcolor{gray!20}0.394/0.357 & \cellcolor{green!20}4.695/0.0   & \cellcolor{green!20}2.932/0.0      \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{green!20}1.915/0.0   & \cellcolor{green!20}1.437/0.0   & \cellcolor{green!20}1.828/0.0   & \cellcolor{green!20}1.853/0.0      \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{gray!20}1.488/0.219 & \cellcolor{gray!20}0.727/1.0   & \cellcolor{gray!20}1.705/0.2   & \cellcolor{gray!20}1.505/0.192    \\
+		tools       & 开发工具 & \cellcolor{green!20}1.52/0.0    & \cellcolor{green!20}2.061/0.0   & \cellcolor{green!20}1.984/0.0   & \cellcolor{green!20}1.631/0.0      \\
+		tokio       & 异步运行时       & \cellcolor{green!20}4.258/0.0   & \cellcolor{green!20}1.581/0.011 & \cellcolor{green!20}1.698/0.0   & \cellcolor{green!20}1.54/0.0       \\
+		diem        & 区块链和安全      & \cellcolor{gray!20}1.138/0.528 & \cellcolor{gray!20}1.159/0.639 & \cellcolor{green!20}2.924/0.0   & \cellcolor{green!20}4.691/0.0      \\
+		vaultwarden & 区块链和安全      & \cellcolor{green!20}2.178/0.0   & \cellcolor{gray!20}1.314/0.382 & \cellcolor{green!20}9.891/0.0   & \cellcolor{green!20}3.073/0.0      \\
+		actix-web   & 网络框架        & \cellcolor{green!20}2.061/0.0   & \cellcolor{green!20}2.904/0.0   & \cellcolor{green!20}1.463/0.014 & \cellcolor{green!20}1.345/0.03   \\
+        \bottomrule
+	\end{tabular}
+	\label{tab:RQ3-3}
+\end{table}
+
+由表\ref{tab:RQ3-3}可以得出：Enumeration、TypeAlias、Function、Implementation显示出比较强的引入缺陷倾向。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ3研究结果d}
+	\begin{tabular}{cccccc}
+        \toprule
+		\textbf{repo}        & \textbf{领域}          & \textbf{Trait}       & \textbf{StaticItem}  & \textbf{UseDeclaration} & \textbf{GenericParams} \\
+        \midrule
+		egui        & GUI框架       & \cellcolor{green!20}2.225/0.0   & \cellcolor{gray!20}inf/0.062   & \cellcolor{green!20}3.321/0.0      & \cellcolor{green!20}1.926/0.0     \\
+		iced        & GUI框架       & \cellcolor{green!20}4.695/0.0   & \cellcolor{gray!20}0.843/1.0   & \cellcolor{green!20}1.969/0.0      & \cellcolor{gray!20}1.132/0.456   \\
+		nushell     & 命令行工具与Shell & \cellcolor{green!20}1.782/0.009 & \cellcolor{gray!20}1.398/0.414 & \cellcolor{green!20}1.933/0.0      & \cellcolor{green!20}2.786/0.0     \\
+		clap        & 命令行工具与Shell & \cellcolor{gray!20}1.178/0.45  & \cellcolor{green!20}1.541/0.004 & \cellcolor{green!20}1.533/0.0      & \cellcolor{gray!20}1.232/0.191   \\
+		starship    & 命令行工具与Shell & \cellcolor{gray!20}1.995/0.408 & \cellcolor{gray!20}0.0/0.175   & \cellcolor{green!20}2.916/0.0      & \cellcolor{gray!20}1.257/0.307   \\
+		tikv        & 系统编程与虚拟化    & \cellcolor{green!20}1.412/0.0   & \cellcolor{green!20}2.636/0.0   & \cellcolor{green!20}2.325/0.0      & \cellcolor{green!20}2.099/0.0     \\
+		firecracker & 系统编程与虚拟化    & \cellcolor{gray!20}0.0/0.63    & \cellcolor{gray!20}0.0/1.0     & \cellcolor{gray!20}1.535/0.157    & \cellcolor{gray!20}1.069/0.759   \\
+		tools       & 开发工具 & \cellcolor{green!20}1.881/0.0   & \cellcolor{gray!20}1.821/0.087 & \cellcolor{green!20}2.785/0.0      & \cellcolor{green!20}2.03/0.0      \\
+		tokio       & 异步运行时       & \cellcolor{gray!20}1.123/0.633 & \cellcolor{gray!20}0.684/0.553 & \cellcolor{green!20}2.686/0.0      & \cellcolor{green!20}2.817/0.0     \\
+		diem        & 区块链和安全      & \cellcolor{gray!20}1.415/0.308 & \cellcolor{gray!20}0.756/0.686 & \cellcolor{green!20}1.969/0.0      & \cellcolor{green!20}4.934/0.0     \\
+		vaultwarden & 区块链和安全      & \cellcolor{gray!20}nan/1.0     & \cellcolor{green!20}2.289/0.0   & \cellcolor{green!20}2.826/0.0      & \cellcolor{gray!20}0.858/0.866   \\
+		actix-web   & 网络框架        & \cellcolor{green!20}1.913/0.01  & \cellcolor{gray!20}0.747/0.812 & \cellcolor{green!20}3.397/0.0      & \cellcolor{green!20}2.02/0.0   \\
+        \bottomrule     
+	\end{tabular}
+	\label{tab:RQ3-4}
+\end{table}
+
+由表\ref{tab:RQ3-4}可以得出：UseDeclaration显示出比较强的引入缺陷倾向, Trait、StaticItem、GenericParams数据异常无法得出结论。
+
+综上，研究问题三可以得出如下的结论：
+
+\begin{enumerate}
+    \item ExternCrate、Trait、ExternBlock、StaticItem、GenericParams、MacroRulesDefination数据大小无规律、数据量偏少或异常，导致无法形成结论。
+    \item Module、ConstantItem、MacroInvocationSemi、Struct、Enumeration、TypeAlias、Function、Implementation、UseDeclaration普遍结果是具有bug引入倾向。
+    \item 通过横向对比，我们发现，Implementation、Struct、UseDecalaration的OR比较大，对bug引入影响大，与结果3基本一致。
+    \item 对于命令行工具与Shell领域，Enumeration类型对bug引入的影响比较大。
+    \item 区块链和安全领域Struct和Function在区块链和安全项目中表现出高bug引入倾向。
+    \item Function的OR值整体都偏大，在数值上与其他item比有很大优势。
+    \item 各仓库OR数值整体偏大。
+    \item Union数据量极少，很多仓库没有统计到这个语法项。
+\end{enumerate}
+
+通过以上的结论，我们结合对于具体仓库的具体代码实例的观察，有如下分析讨论：
+
+我们发现Module、MacroInvocationSemi、Struct、Enumeration、Function、Implementation、Usedeclaration等普遍存在bug引入倾向，这些发现为Rust开发社区提供了重要的参考信息，有助于在未来的软件开发中加强代码质量管理。特别是Function和Struct两种类型，在所有领域中普遍显示出较高的bug引入风险，这提示开发者在使用这些特征时需更加谨慎。
+
+下面我们针对每一种语法项，结合我们对于源代码的观察，给出一些解释。
+对于Module，模块的组织不当或者是作用域声明不当，可能导致程序出现依赖问题，还可能导致不该被暴漏外部的代码暴漏，应该暴漏的未暴漏等问题。
+
+对于Struct和Enumeration，由于他们都是Rust中定义数据类型的语法项，而且其内部组成十分相似，我们一起讨论。从我们的实际观察来看，引入的原因多是对于已定义结构体或枚举类的成员使用不当或是不合理的成员设计。
+
+对于Function，它是执行逻辑的基本单元，引入错误的形式可能是逻辑过于复杂，接口不明确等。最显著的就是逻辑复杂导致的引入bug。正如Rust本身安全的特性，它通过所有权机制避免了很多可能的安全问题，使得安全类的问题少了很多，逻辑问题成为了函数发生故障的主要形式，这也不失为Rust程序设计语言的一大优点，即程序员可以更多的专注于业务逻辑，更少的去跟安全漏洞做斗争。
+
+对于Implementation，通过观察，大多数时候也是逻辑问题导致的故障。
+
+对于Usedeclaration，多是因为引入外部库导致依赖冲突，或是逻辑上的错误使用。
+
+除此之外，一些数据因量少或异常未能形成有效结论，如ExternCrate和Union，这限制了分析的全面性。未来我们的研究应当考虑更广泛的数据集和复杂的模型来增强结果的可靠性和泛化性。此外，不同领域如区块链和安全领域的特殊性也值得深入探索，以针对性地解决这些高风险领域的问题。
+
+\section{结果四：特定语法项中的引入类型与故障倾向性之间的关系}
+
+\begin{table}[ht]
+	\centering
+        \caption{RQ4研究结果:Struct}
+	\begin{tabular}{cccc}
+        \toprule
+		\textbf{repo}        & \textbf{const0}        & \textbf{visibility\_modifier} & \textbf{type}         \\
+        \midrule
+		actix-web   & \cellcolor{orange!30}-1.291/0.0    & \cellcolor{gray!20}-0.608/0.344        & \cellcolor{gray!20}-0.054/0.873 \\
+		alacritty   & \cellcolor{orange!30}-0.767/0.015  & \cellcolor{green!20}0.589/0.046         & \cellcolor{green!20}0.955/0.006  \\
+		clap        & \cellcolor{orange!30}-3.814/0.0    & \cellcolor{gray!20}0.853/0.137         & \cellcolor{gray!20}0.441/0.431  \\
+		diem        & \cellcolor{orange!30}-2.749/0.0    & \cellcolor{orange!30}-1.042/0.03         & \cellcolor{gray!20}-0.14/0.684  \\
+		egui        & \cellcolor{orange!30}-1.262/0.0    & \cellcolor{gray!20}0.131/0.403         & \cellcolor{gray!20}0.336/0.062  \\
+		firecracker & \cellcolor{gray!20}-25.064/0.999 & \cellcolor{gray!20}-0.358/0.618        & \cellcolor{gray!20}21.838/0.999 \\
+		iced        & \cellcolor{orange!30}-4.014/0.0    & \cellcolor{gray!20}-0.806/0.282        & \cellcolor{gray!20}0.494/0.431  \\
+		nushell     & \cellcolor{orange!30}-1.987/0.0    & \cellcolor{green!20}0.823/0.0           & \cellcolor{green!20}1.08/0.0     \\
+		starship    & \cellcolor{gray!20}-0.002/0.998  & \cellcolor{gray!20}0.021/0.947         & \cellcolor{gray!20}-0.501/0.422 \\
+		tikv        & \cellcolor{gray!20}0.162/0.217   & \cellcolor{gray!20}-0.183/0.101        & \cellcolor{gray!20}0.096/0.495  \\
+		tokio       & \cellcolor{orange!30}-1.261/0.0    & \cellcolor{gray!20}0.002/0.994         & \cellcolor{gray!20}0.169/0.569  \\
+		tools       & \cellcolor{orange!30}-0.94/0.0     & \cellcolor{orange!30}-0.782/0.0          & \cellcolor{green!20}0.385/0.031  \\
+		vaultwarden & \cellcolor{orange!30}-2.221/0.0    & \cellcolor{gray!20}0.284/0.502         & \cellcolor{gray!20}0.192/0.736   \\
+        \bottomrule 
+	\end{tabular}
+	\label{tab:RQ4-1}
+\end{table}
+
+由表\ref{tab:RQ4-1}可以得出：各个子成分结果C值大小不定且p值偏大，无法得出结论。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ4研究结果:GenericParam}
+	\begin{tabular}{ccccc}
+        \toprule
+		\textbf{repo}        & \textbf{const0}       & \textbf{LifetimeParam} & \textbf{ConstParam}    & \textbf{TypeParam}    \\
+        \midrule
+		clap        & \cellcolor{gray!20}72.185/nan   & \cellcolor{gray!20}-73.838/nan   & \cellcolor{gray!20}-110.49/1.0   & \cellcolor{gray!20}-73.813/nan  \\
+		tikv        & \cellcolor{gray!20}0.838/0.085  & \cellcolor{orange!30}-1.409/0.001  & \cellcolor{gray!20}-51.252/1.0   &\cellcolor{gray!20}-0.479/0.321 \\
+		tokio       & \cellcolor{gray!20}-0.182/0.633 & \cellcolor{gray!20}-0.404/0.203  & \cellcolor{gray!20}-21.374/0.999 & \cellcolor{orange!30}-0.877/0.02  \\
+		tools       & \cellcolor{gray!20}0.01/0.98    & \cellcolor{gray!20}-0.198/0.597  & \cellcolor{gray!20}-0.703/0.585  &\cellcolor{orange!30}-0.943/0.016 \\
+		vaultwarden & \cellcolor{gray!20}-28.113/1.0  & \cellcolor{gray!20}-14.668/1.0   & \cellcolor{gray!20}-6.737/1.0    & \cellcolor{gray!20}-6.708/1.0   \\
+        \bottomrule  
+	\end{tabular}
+	\label{tab:RQ4-2}
+\end{table}
+
+由表\ref{tab:RQ4-2}可以得出：各个子成分结果C值大小不定且p值偏大，无法得出结论。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ4研究结果:Function}
+	\begin{tabular}{ccccccc}
+        \toprule
+		\textbf{repo} & \textbf{const0}      & \textbf{function\_modifiers} & \textbf{parameters}  & \textbf{lifetime}    & \textbf{trait\_bounds} & \textbf{return\_type}  \\
+        \midrule
+		clap & \cellcolor{orange!30}-2.606/0.0  & \cellcolor{gray!20}-19.572/0.998      & \cellcolor{green!20}0.278/0.0   & \cellcolor{gray!20}1.656/0.106 & \cellcolor{green!20}0.671/0.002  & \cellcolor{green!20}0.658/0.0    \\
+		iced & \cellcolor{orange!30}-3.003/0.0  & \cellcolor{gray!20}-20.974/1.0        & \cellcolor{gray!20}0.197/0.117 & \cellcolor{gray!20}-18.231/1.0 & \cellcolor{gray!20}-1.091/0.063 & \cellcolor{gray!20}-0.178/0.247 \\
+		tikv & \cellcolor{green!20}0.043/0.023 & \cellcolor{green!20}0.616/0.0          & \cellcolor{green!20}0.113/0.001 & \cellcolor{gray!20}29.331/1.0  & \cellcolor{gray!20}0.233/0.214  & \cellcolor{gray!20}-0.054/0.199   \\
+        \bottomrule
+	\end{tabular}
+	\label{tab:RQ4-3}
+\end{table}
+
+由表\ref{tab:RQ4-3}可以得出：Parameters数值较为有效但数值趋近0，对bug引入影响不明显，各个子成分结果C值大小不定且p值偏大，无法得出结论。
+
+\begin{table}[ht]
+	\centering
+	\caption{RQ4研究结果:ConstItem}
+	\begin{tabular}{cccc}
+        \toprule
+		\textbf{repo}        & \textbf{const0}        & \textbf{type}         & \textbf{expression}   \\
+        \midrule
+		actix-web   & \cellcolor{gray!20}-21.995/1.0   & \cellcolor{orange!30}-2.38/0.021  & \cellcolor{gray!20}21.484/1.0   \\
+		alacritty   & \cellcolor{gray!20}-0.274/0.792  & \cellcolor{gray!20}1.142/0.078  & \cellcolor{gray!20}-0.841/0.456 \\
+		clap        & \cellcolor{gray!20}-24.41/1.0    & \cellcolor{gray!20}1.368/0.093  & \cellcolor{gray!20}21.133/1.0   \\
+		diem        & \cellcolor{gray!20}-21.982/0.998 & \cellcolor{gray!20}1.723/0.106  & \cellcolor{gray!20}16.958/0.998 \\
+		firecracker & \cellcolor{gray!20}-22.12/0.999  & \cellcolor{gray!20}-1.698/0.132 & \cellcolor{gray!20}18.169/0.999 \\
+		iced        & \cellcolor{gray!20}-23.95/0.999  & \cellcolor{gray!20}2.95/1.0     & \cellcolor{gray!20}3.463/1.0    \\
+		nushell     & \cellcolor{gray!20}-1.198/0.355  & \cellcolor{gray!20}1.344/0.001  & \cellcolor{gray!20}-0.559/0.669 \\
+		tikv        & \cellcolor{gray!20}0.653/0.109   & \cellcolor{gray!20}0.671/0.01   & \cellcolor{gray!20}-0.918/0.041 \\
+		tokio       & \cellcolor{gray!20}-17.458/0.996 & \cellcolor{gray!20}0.931/0.238  & \cellcolor{gray!20}15.155/0.996 \\
+		tools       & \cellcolor{gray!20}-0.179/0.76   & \cellcolor{gray!20}0.94/0.0     & \cellcolor{gray!20}-1.251/0.025 \\
+		vaultwarden & \cellcolor{gray!20}-17.209/0.998 & \cellcolor{gray!20}-0.762/0.545 & \cellcolor{gray!20}14.57/0.998   \\
+        \bottomrule 
+	\end{tabular} 
+	\label{tab:RQ4-4}
+\end{table}
+
+由表\ref{tab:RQ4-4}可以得出：各个子成分结果C值大小不定且p值偏大，无法得出结论。
+
+通过以上的结论，我们结合对于具体仓库的具体代码实例的观察，有如下分析讨论：
+
+在对ConstItem和Function的分析中，我们发现ConstItem的type子成分倾向于引入bug，这可能是由于类型定义在常量项目中可能更复杂或易于配置错误，从而导致更高的错误引入风险，其余指标因数据显著性不足而难以得出结论。而在Function中，参数的变动对bug引入的影响不明显，可能意味着在函数定义中参数的微小变更不足以显著影响bug的引入概率。其他子成分的数据也因不一致性和统计显著性不足而难以形成具体结论。这些结果揭示了当前研究中存在的数据限制和统计分析的局限性，强调了未来需要更系统的数据收集和精细化分析以确保研究结果的准确性和实用性。对现有数据进行更深入的质量控制和分析方法的改进，对于提高研究成果的可信度和应用价值至关重要。

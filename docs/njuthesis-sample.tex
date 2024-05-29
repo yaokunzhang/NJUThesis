@@ -54,9 +54,58 @@
 % \usepackage{subcaption} % 嵌套小幅图像，比 subfig 和 subfigure 更新更好
 % \usepackage{siunitx} % 标准单位符号
 % \usepackage{physics} % 物理百宝箱
-% \usepackage[version=4]{mhchem} % 绘制分子式
-% \usepackage{listings} % 展示代码
+% \usepackage[version=4]{mhchem} % 绘制分子式 
 % \usepackage{algorithm,algorithmic} % 展示算法伪代码
+\usepackage{listings}
+\usepackage{parcolumns}
+\usepackage{multicol} % 用于创建多栏布局
+\usepackage{caption}  % 用于自定义图表标题
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float} % 提供 H 选项
+% \usepackage{xcolor}
+\usepackage[table]{xcolor}
+\usepackage{fancyvrb} % 解决 listings 和 minipage 的兼容性问题
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% 手动添加Rust语言支持
+\lstdefinelanguage{Rust}{
+  keywords={break, const, continue, crate, else, enum, extern, false, fn, for, if, impl, in, let, loop, match, mod, move, mut, pub, ref, return, self, Self, static, struct, super, trait, true, type, unsafe, use, where, while, async, await, dyn},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={bool, char, f32, f64, i8, i16, i32, i64, isize, str, u8, u16, u32, u64, usize, Option, Result, String, Vec},
+  ndkeywordstyle=\color{cyan}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{green}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  literate=
+    {'}{{\textquotesingle}}1
+    {\\}{{\textbackslash}}1
+}
+
+\lstset{
+language=Rust,
+columns=fixed,       
+numbers=left,                                        % 在左侧显示行号
+numberstyle=\tiny\color{gray},                       % 设定行号格式
+frame=none,                                          % 不显示背景边框
+backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+numberstyle=\footnotesize\color{darkgray},           
+commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+showstringspaces=false,                              % 不显示字符串中的空格
+breaklines=true,
+}
+\renewcommand\lstlistingname{代码示例}
 
 % 在导言区随意定制所需命令
 % \DeclareMathOperator{\spn}{span}
@@ -78,11 +127,19 @@
 % \raggedbottom
 
 \begin{abstract}
-  中文摘要
+    Rust 是一种开源系统编程语言，旨在提供内存安全和线程安全，以解决 C 和 C++ 中常见的内存错误和并发问题。作为一种当下热门的编程语言，由它开发的软件质量备受关注。受过去几项研究的启发，我们试图对Rust 语法结构与软件变更及错误倾向性之间的关系展开研究，为此我们定义了四个研究问题，来探索 Rust 语言特性如何影响变更和错误倾向。
+    
+    我们选定了十二个流行的Rust项目作为研究对象，如 egui、iced、nushell、clap 等。对于变更倾向，我们通过设定的规则遍历版本控制系统中所有commit，将所有commit划分为变更commit和非变更commit；对于错误倾向，我们通过版本控制系统找到所有的错误修复commit，然后通过预先定义的算法搜索错误引入commit。对于如上收集到的commit，我们通过求解语法树编辑距离算法，获得我们关注的变动部分。分别使用优势比分析和逻辑回归分析对变动部分进行分析，得出研究结果。
+    
+    本研究发现，某些语法结构对软件变更和错误倾向有促进或者抑制作用。我们结合实际仓库对这些结论进行调查，分析了造成这些现象的原因，给出了讨论。另外，我们还分析这项研究的不足，并给出了对未来工作的展望。
 \end{abstract}
 
 \begin{abstract*}
-  English abstract
+    Rust is an open-source systems programming language designed to provide memory safety and thread safety, addressing common memory errors and concurrency issues found in C and C++. As a popular programming language today, the quality of software developed with Rust is highly regarded. Inspired by several previous studies, we aim to investigate the relationship between Rust's syntax structures and the propensity for changes and errors in software. To this end, we have defined four research questions to explore how Rust's language features influence change and error propensity.
+    
+    We selected twelve popular Rust projects as our research subjects, including egui, iced, nushell, clap, and others. For change propensity, we traversed all commits in the version control system using predefined rules, categorizing all commits into change commits and non-change commits. For error propensity, we identified all bug-fix commits from the version control system and used a predefined algorithm to search for bug-introducing commits. For the collected commits, we calculated the edit distance of syntax trees to focus on the changes of interest. We analyzed the changes using odds ratio analysis and logistic regression analysis to obtain our research results.
+    
+    This study found that certain syntax structures have a promotive or inhibitory effect on software changes and error propensity. We investigated these conclusions with actual repositories, analyzing the reasons behind these phenomena and providing a discussion. Additionally, we analyzed the limitations of this study and offered prospects for future work.
 \end{abstract*}
 
 % 生成目录
@@ -112,14 +169,17 @@
 % 然后在这里用 \include 导入，例如
 %   \include{chapters/introduction}
 %   \include{chapters/environments}
+\include{chapters/introduction.tex}
 
-\chapter{引言}
+\include{chapters/methodology.tex}
 
-\section{量子计算}
+\include{chapters/study_results.tex}
 
-John Preskill 认为我们现在处于“含噪声的中型量子时代”。\cite{preskill2018}
-量子位的不稳定性和有限的量子比特数量限制了量子计算机的复杂度和纠错能力。
+%\include{chapters/discussion.tex}
 
+\include{chapters/evaluation_and_lack.tex}
+
+\include{chapters/summary.tex}
 %---------------------------------------------------------------------
 %	参考文献
 %---------------------------------------------------------------------
@@ -132,7 +192,17 @@ John Preskill 认为我们现在处于“含噪声的中型量子时代”。\ci
 %---------------------------------------------------------------------
 
 \begin{acknowledgement}
-  感谢 \href{https://git.nju.edu.cn/nju-lug/lug-introduction}{LUG@NJU}。
+  当写完这篇论文时，意味着我的大学四年生活也即将画上句号，这四年充满精彩，充满挑战，每每想起那些个时光，就不由觉得激动万分。在这里，向我的大学生涯挥挥手做一个告别。
+  
+  首先，我要特别感谢我的知道指导老师冯洋对我的悉心指导，在我的论文书写及设计过程中给了我大量的帮助和指导，为我理清了设计思路和操作方法，并对我所做的课题提出了有效的改进方案。冯洋老师渊博的知识、严谨的作风和诲人不倦的态度给我留下了深刻的印象。从他身上，我学到了许多能受益终生的东西。再次对冯洋老师表示衷心的感谢。
+  
+  其次，我要感谢张城铨学长对我的帮助，学长帮助我设计了论文具体实施方案，在我完成每一步毕业设计时，学长都会给我指导，毕业设计的完成，从始至终离不开学长的帮助。从学长身上，我学会了认真负责的工作学习态度，这将指引我未来的学习工作生涯。
+  
+  再者，感谢四年一起学习，一起玩耍，一起成长过得好友、同学，没有你们就不会有持续进步的我，感谢相遇，期待再见。
+  
+  感谢我的爸爸妈妈和姐姐，是你们一直在我身后支持着我，不管是从物质上的扶持，还是精神上的鼓励，你们辛勤工作，艰苦付出，我永远不会忘记报答你们的恩情。
+  
+  最后我还要感谢在百忙之中评审这篇论文的各位专家教授！
 \end{acknowledgement}
 
 %---------------------------------------------------------------------
